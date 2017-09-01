@@ -1,13 +1,14 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { InstantSearch } from 'react-instantsearch/native';
-import { StyleSheet, View, FlatList, Image, Text,   TextInput, } from 'react-native';
+import { StyleSheet, FlatList, Image, Modal, Text, TextInput, TouchableHighlight, View, } from 'react-native';
 
 import { connectInfiniteHits,   connectSearchBox, } from 'react-instantsearch/connectors';
 
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <ModalExample />
         <InstantSearch
           appId="NSUTPVU7Z2"
           apiKey="258477ff2fa8efd092747ceed6cbb0a7"
@@ -92,3 +93,46 @@ const Hits = connectInfiniteHits(({ hits, hasMore, refine }) => {
       );
     });
     
+  class ModalExample extends Component {
+    
+      state = {
+        modalVisible: true,
+      }
+    
+      setModalVisible(visible) {
+        this.setState({modalVisible: visible});
+      }
+    
+      render() {
+        return (
+          <View style={{marginTop: 22}}>
+            <Modal
+              animationType="slide"
+              transparent={false}
+              visible={this.state.modalVisible}
+              onRequestClose={() => {alert("Modal has been closed.")}}
+              >
+              <View style={{marginTop: 22}}>
+              <View>
+                <Text>Hello World!</Text>
+    
+                <TouchableHighlight onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible)
+                }}>
+                  <Text>Hide Modal</Text>
+                </TouchableHighlight>
+    
+              </View>
+              </View>
+            </Modal>
+    
+            <TouchableHighlight onPress={() => {
+              this.setModalVisible(true)
+            }}>
+              <Text>Show Modal</Text>
+            </TouchableHighlight>
+    
+          </View>
+        );
+      }
+    }
