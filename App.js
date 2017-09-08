@@ -94,7 +94,7 @@ const Hits = connectInfiniteHits(({ hits, hasMore, refine }) => {
     });
     
   class ModalExample extends Component {
-    
+
       state = {
         modalVisible: true,
       }
