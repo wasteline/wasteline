@@ -8,7 +8,6 @@ export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <ModalExample />
         <InstantSearch
           appId="NSUTPVU7Z2"
           apiKey="258477ff2fa8efd092747ceed6cbb0a7"
