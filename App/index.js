@@ -6,7 +6,9 @@ import configureStore from './../redux/store';
 import mockData from './../data/data.json';
 
 let initialState = {
-  items: mockData
+  items: mockData,
+  currentProfile: {},
+  showItem: false
 };
 
 let store = configureStore(initialState);
