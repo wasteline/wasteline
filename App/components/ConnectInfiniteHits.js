@@ -26,6 +26,26 @@ const Hits = connectInfiniteHits(({ hits, hasMore, refine, props }) => {
   const handleProfile = (target) => {
     props.changeProfile(target);
   };
+
+  const styles = {
+    container: {
+      flexDirection: 'row', 
+      alignItems: 'center',
+      borderBottomWidth: 1,
+      borderColor: 'white' 
+    },
+    imgSize: {
+      height: 100, width: 100,
+      borderRadius: 50, 
+    },
+    titleContainer: {
+    
+    },
+    itemTitle: {
+      color: 'white',
+      marginLeft: 10
+    }
+  };
   
   return (
       <FlatList
@@ -35,13 +55,13 @@ const Hits = connectInfiniteHits(({ hits, hasMore, refine, props }) => {
         renderItem={({ item }) => {
           return (
             <TouchableOpacity onPress={()=>{ handleProfile(item); }}>
-              <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+              <View style={styles.container}>
                 <Image
-                  style={{ height: 100, width: 100 }}
+                  style={styles.imgSize}
                   source={{ uri: item.image_url }}
                 />
-                <View>
-                  <Text>
+                <View style={styles.titleContainer}>
+                  <Text style={styles.itemTitle}>
                     {item.object}
                   </Text>
                 </View>
