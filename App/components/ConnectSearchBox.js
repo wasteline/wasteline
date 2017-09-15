@@ -12,7 +12,7 @@ import {
 
 import { connectSearchBox } from 'react-instantsearch/connectors';
 
-const SearchBox = connectSearchBox(({ refine, currentRefinement, props }) => {
+const SearchBox = connectSearchBox(({handlePosition, refine, currentRefinement, props }) => {
     
   const styles = {
     height: 50,
@@ -27,7 +27,8 @@ const SearchBox = connectSearchBox(({ refine, currentRefinement, props }) => {
   return (
         <TextInput
           style={styles}
-          onChangeText={(text) => { 
+          onChangeText={(text) => {
+            handlePosition(); 
             if (text.length === 1) {
               props.showItemList();
             }
