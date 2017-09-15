@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import { connectInfiniteHits } from 'react-instantsearch/connectors';
+import { connectInfiniteHits } from 
+'react-instantsearch/connectors';
 import { 
   StyleSheet, 
   FlatList, 
@@ -7,17 +8,42 @@ import {
   Modal, 
   Text, 
   TextInput, 
-  TouchableHighlight, 
+  TouchableHighlight,
+  TouchableOpacity, 
   View
  } from 'react-native';
 
-const Hits = connectInfiniteHits(({ hits, hasMore, refine }) => {
+const Hits = connectInfiniteHits(({ hits, hasMore, refine, props }) => {
   
     /* if there are still results, you can
     call the refine function to load more */
   const onEndReached = function() {
     if (hasMore) {
       refine();
+    }
+  };
+
+  const handleProfile = (target) => {
+    props.changeProfile(target);
+  };
+
+  const styles = {
+    container: {
+      flexDirection: 'row', 
+      alignItems: 'center',
+      borderBottomWidth: 1,
+      borderColor: 'white' 
+    },
+    imgSize: {
+      height: 100, width: 100,
+      borderRadius: 50, 
+    },
+    titleContainer: {
+    
+    },
+    itemTitle: {
+      color: 'white',
+      marginLeft: 10
     }
   };
   
@@ -28,17 +54,19 @@ const Hits = connectInfiniteHits(({ hits, hasMore, refine }) => {
         keyExtractor={(item, index) => item.objectID}
         renderItem={({ item }) => {
           return (
-            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-              <Image
-                style={{ height: 100, width: 100 }}
-                source={{ uri: item.image_url }}
-              />
-              <View style={{ flex: 1 }}>
-                <Text>
-                  {item.object}
-                </Text>
+            <TouchableOpacity onPress={()=>{ handleProfile(item); }}>
+              <View style={styles.container}>
+                <Image
+                  style={styles.imgSize}
+                  source={{ uri: item.image_url }}
+                />
+                <View style={styles.titleContainer}>
+                  <Text style={styles.itemTitle}>
+                    {item.object}
+                  </Text>
+                </View>
               </View>
-            </View>
+            </TouchableOpacity>
           );
         }}
       />

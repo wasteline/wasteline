@@ -8,7 +8,7 @@ const finalCreateStore = compose(
   applyMiddleware(logger)
 )(createStore);
 
-const configure = (initialState = {items: []}) => {
+const configure = (initialState = {items: [], currentProfile: {}, showItemList: false}) => {
   return finalCreateStore(reducer, initialState); 
 };
 export default configure;
