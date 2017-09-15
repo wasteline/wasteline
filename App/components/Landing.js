@@ -11,15 +11,34 @@ import { StyleSheet,
   TextInput, 
   TouchableHighlight,
   TouchableOpacity, 
-  View
+  View,
+  NativeModules,
+  LayoutAnimation
 } from 'react-native';
 
-export default class Landing extends Component {
+const { UIManager } = NativeModules;
 
+UIManager.setLayoutAnimationEnabledExperimental &&
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+
+export default class Landing extends Component {
+  constructor() {
+    super();
+    this.state = {
+      position: 'center'
+    };
+  }
+
+  handlePosition() {
+    LayoutAnimation.spring();
+    this.setState({
+      position: 'flex-start'
+    });
+  }
   render() {
     // console.log(this.props);
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, {justifyContent: this.state.position}]}>
         <Text style={styles.header}>WasteLine</Text>
       <InstantSearch
         appId="NSUTPVU7Z2"
@@ -27,7 +46,7 @@ export default class Landing extends Component {
         indexName="test_WASTE"
       >
       <View style={styles.direction}>
-        <SearchBox props={this.props}/>
+        <SearchBox props={this.props} handlePosition={this.handlePosition.bind(this)}/>
       </View>
       {/* ----- uncomment below to load data from rudux store ----- */}
       {/* <FlatList
@@ -57,9 +76,8 @@ export default class Landing extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    marginTop: 20,
-    backgroundColor: '#48d1cc'
+    flex: 1
+  
   },
   header: {
     fontSize: 30,
