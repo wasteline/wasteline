@@ -1,21 +1,27 @@
 import React, {Component} from 'react';
 import Landing from './../containers/LandingContainer';
+import Profile from './../containers/ProfileContainer';
 import { StyleSheet, FlatList, Image, Modal, Text, TextInput, TouchableHighlight, View, } from 'react-native';
+import { StackNavigator } from 'react-navigation';
 
+const App = StackNavigator({
+  Landing: { screen: Landing },
+  Profile: { screen: Profile },
+});
 
-export default class App extends Component {
-  constructor(props) {
-    super(props);
-  }
+// class App extends Component {
+//   constructor(props) {
+//     super(props);
+//   }
 
-  render() {
-    return (
-      <View style={styles.container}>
-        <Landing />
-      </View>
-    );
-  }
-}
+//   render() {
+//     return (
+//       <View style={styles.container}>
+//         <Landing />
+//       </View>
+//     );
+//   }
+// }
 
 const styles = StyleSheet.create({
   container: {
@@ -27,3 +33,5 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 });
+
+export default App;
