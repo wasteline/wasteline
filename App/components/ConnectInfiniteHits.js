@@ -25,6 +25,7 @@ const Hits = connectInfiniteHits(({ hits, hasMore, refine, props }) => {
 
   const handleProfile = (target) => {
     props.changeProfile(target);
+    props.navigation.navigate('Profile');
   };
 
   const styles = {
@@ -53,6 +54,7 @@ const Hits = connectInfiniteHits(({ hits, hasMore, refine, props }) => {
         onEndReached={onEndReached}
         keyExtractor={(item, index) => item.objectID}
         renderItem={({ item }) => {
+          console.log(item);
           return (
             <TouchableOpacity onPress={()=>{ handleProfile(item); }}>
               <View style={styles.container}>

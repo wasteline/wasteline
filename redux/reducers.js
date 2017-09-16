@@ -8,6 +8,10 @@ export const reducer = (state, action) => {
     return Object.assign({}, state, {
       currentProfile: action.payload
     });
+  case 'SHOW_PROFILE':
+    return Object.assign({}, state, {
+      currentProfile: action.payload
+    });
   case 'SHOW_ITEMS':
     return Object.assign({}, state, {
       showItem: action.payload
