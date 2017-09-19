@@ -6,7 +6,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  addItem: () => { dispatch({ type: 'ADD_ITEM' }); }
+  setProducts: (data) => { dispatch({ type: 'SET_PRODUCTS', payload: data }); }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Hits);
