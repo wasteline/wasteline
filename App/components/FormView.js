@@ -94,19 +94,35 @@ export default class FormView extends Component {
   }
   render() {
     return (
-      <View style={styles.container} onTouchEnd={()=>{this.handleKeyboard();}}>
-        <FormLabel>Product Name</FormLabel>
-        <FormInput onChangeText={input => this.setState({input})} required placeholder='Enter Product Name' onTouchEnd={()=>{this.handleInputTouch()}} />
-        <FormValidationMessage>Error message</FormValidationMessage>
-        <ImageUploader handleImage={this.handleImage.bind(this)}/>
-        {this.handleConfirm()}
-        <Button
-          style={{margin:20}}
-          backgroundColor='dodgerblue'
-          raised
-          title='SUBMIT' 
-          onPress={this.handleSubmit.bind(this)}
-          />
+      <View style={styles.container}
+       onTouchEnd={()=>{this.handleKeyboard();}}>
+        <View style={styles.FormContainer}>
+          <FormLabel>Product Name</FormLabel>
+          <FormInput 
+            onChangeText={input => this.setState({input})} 
+            required 
+            placeholder='Enter Product Name' 
+            onTouchEnd={()=>{this.handleInputTouch()}} />
+          <FormValidationMessage>Error message</FormValidationMessage>
+        </View>
+
+        <View style={styles.ImageUploaderContainer}>
+          <FormLabel>Upload Product Image</FormLabel>
+          <ImageUploader 
+            handleImage={this.handleImage.bind(this)}/>
+          {this.handleConfirm()}
+        </View>
+
+        <View>
+          <Button
+            style={{margin:20}}
+            backgroundColor='dodgerblue'
+            raised
+            title='SUBMIT' 
+            onPress={this.handleSubmit.bind(this)}
+            />
+        </View>
+
           <Text>Image to be uploaded</Text>
           <Text>{JSON.stringify(this.state.image)}</Text>
 
@@ -121,9 +137,11 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent:'center'
   },
-  direction: {
-    flexDirection: 'row', 
-    alignItems: 'center'
+  FormContainer:{
+    flex:3
+  },
+  ImageUploaderContainer:{
+    flex:2
   },
   label: {
     fontSize: 20,
