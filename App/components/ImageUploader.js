@@ -18,18 +18,24 @@ import {
 } from 'react-native-elements';
 import Exponent, { Constants, ImagePicker, registerRootComponent } from 'expo';
 
+const styles =StyleSheet.create({
+  ImageUploaderButtonContainer:{
+    alignItems: 'center',
+    margin:20,
+  },
+})
+
 export default class ImageUploader extends React.Component {
   state = {
     image: null,
     uploading: false,
   };
-
+  
   render() {
     let { image } = this.state;
     // console.log(this.props);
     return (
-      <View style={{alignItems: 'center',margin:20}}>
-      <FormLabel>Upload Product Image</FormLabel>
+      <View style={styles.ImageUploaderButtonContainer}>
         <Button
           style={{width:200,marginBottom:10}}
           raised
@@ -49,10 +55,11 @@ export default class ImageUploader extends React.Component {
           />
 
         <StatusBar barStyle="default" />
+
       </View>
     );
   }
-
+  
   _maybeRenderUploadingOverlay = () => {
     if (this.state.uploading) {
       return (
@@ -70,13 +77,13 @@ export default class ImageUploader extends React.Component {
       );
     }
   };
-
+  
   _maybeRenderImage = () => {
     let { image } = this.state;
     if (!image) {
       return;
     }
-
+    
     return (
       <View
         style={{
@@ -107,7 +114,7 @@ export default class ImageUploader extends React.Component {
       </View>
     );
   };
-
+  
   _share = () => {
     Share.share({
       message: this.state.image,
@@ -115,12 +122,12 @@ export default class ImageUploader extends React.Component {
       url: this.state.image,
     });
   };
-
+  
   _copyToClipboard = () => {
     Clipboard.setString(this.state.image);
     alert('Copied image URL to clipboard');
   };
-
+  
   _takePhoto = async () => {
     let pickerResult = await ImagePicker.launchCameraAsync({
       allowsEditing: true,
@@ -128,7 +135,7 @@ export default class ImageUploader extends React.Component {
     });
     this.props.handleImage(pickerResult);
   };
-
+  
   _pickImage = async () => {
     let pickerResult = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
