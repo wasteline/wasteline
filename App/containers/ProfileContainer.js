@@ -10,7 +10,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch({type: 'SHOW_PROFILE', payload: target});
   }, 
   upvote: () => {
-    dispatch({type: 'INCREMENT_VOTE'})
+    dispatch({type: 'UPVOTE'})
   }
 });
 
