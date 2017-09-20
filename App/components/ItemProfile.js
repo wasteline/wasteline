@@ -24,18 +24,39 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Profile = ({ currentProfile }) => (
-  <View style={{ flexDirection: 'column', marginTop: 30 }}>
-    <Text style={{ fontSize: 20, margin: 10 }}>{currentProfile.object}</Text>
-    <Image style={{ height: 200, width: 300 }} source={{ uri: currentProfile.image_url }} />
-    <View style={{ flexDirection: 'row' }}>
-      <View style={[styles.tableCell, { height: 100, width: '50%', alignItems: 'center' }]}>
-        {/* <Image style={{ height: 70, width: 70 }} source={{ uri: binType(item.bin)[1] }} /> */}
-        {/* <Text>{binType(item.bin)[0]}</Text> */}
+export default class Profile extends Component {
+  constructor(currentProfile) {
+    super(currentProfile);
+
+  }
+  render(){
+    return (
+      <View style={{ flexDirection: 'column', marginTop: 30 }}>
+        <Text style={{ fontSize: 20, margin: 10 }}>{currentProfile.object}</Text>
+        <Image style={{ height: 200, width: 300 }} source={{ uri: currentProfile.image_url }} />
+        <View style={{ flexDirection: 'row' }}>
+          <View style={[styles.tableCell, { height: 100, width: '50%', alignItems: 'center' }]}>
+            {/* <Image style={{ height: 70, width: 70 }} source={{ uri: binType(item.bin)[1] }} /> */}
+            {/* <Text>{binType(item.bin)[0]}</Text> */}
+          </View>
+          <View style={[styles.tableCell, { height: 100, width: '50%', alignItems: 'center' }]}>
+            <Text>placeholder</Text>
+          </View>
+        </View>
+        <View style={ styles.tableCell }>
+          {/* <Text>Brand name: {item.brand}</Text> */}
+          <Text>Brand name</Text>
+        </View>      
+        <View style={ styles.tableCell }>
+          {/* <Text>Material type: {item.material}</Text> */}
+          <Text>Material type</Text>
+        </View>
+        <View style={ styles.tableCell }>
+          <Text>Button placeholder to vote on usefulness</Text>
+          <Text> 3 </Text>
+        </View>
       </View>
-      <View style={[styles.tableCell, { height: 100, width: '50%', alignItems: 'center' }]}>
-        <Text>placeholder</Text>
-      </View>
+<<<<<<< HEAD
     </View>
     <View style={ styles.tableCell }>
       {/* <Text>Brand name: {item.brand}</Text> */}
@@ -58,3 +79,9 @@ export default Profile = ({ currentProfile }) => (
     </View>
   </View>
 );
+=======
+    )
+  }
+
+} 
+>>>>>>> Refactor profile to class.
