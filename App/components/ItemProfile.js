@@ -25,15 +25,12 @@ const styles = StyleSheet.create({
 });
 
 export default class Profile extends Component {
-  constructor(currentProfile) {
-    super(currentProfile);
 
-  }
   render(){
     return (
       <View style={{ flexDirection: 'column', marginTop: 30 }}>
-        <Text style={{ fontSize: 20, margin: 10 }}>{currentProfile.object}</Text>
-        <Image style={{ height: 200, width: 300 }} source={{ uri: currentProfile.image_url }} />
+        <Text style={{ fontSize: 20, margin: 10 }}>{this.props.object}</Text>
+        <Image style={{ height: 200, width: 300 }} source={{ uri: this.props.image_url }} />
         <View style={{ flexDirection: 'row' }}>
           <View style={[styles.tableCell, { height: 100, width: '50%', alignItems: 'center' }]}>
             {/* <Image style={{ height: 70, width: 70 }} source={{ uri: binType(item.bin)[1] }} /> */}

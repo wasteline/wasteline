@@ -8,7 +8,8 @@ import mockData from './../data/data.json';
 let initialState = {
   items: mockData,
   currentProfile: {},
-  showItem: false
+  showItem: false, 
+  upvotes: 0
 };
 
 let store = configureStore(initialState);

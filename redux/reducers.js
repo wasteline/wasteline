@@ -20,11 +20,10 @@ export const reducer = (state, action) => {
     return Object.assign({}, state, {
       showItem: action.payload
     });
-  case 'INCREMENT_VOTE':
-    return Object.assign({}, state, {
-      // what to put here?
-      voteCount: voteCount + 1
-    });
+  case 'UPVOTE':
+  return Object.assign({}, state, {
+    upvotes: upvotes + 1
+  });
   default:
     return state;
   }
