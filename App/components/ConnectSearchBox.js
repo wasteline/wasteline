@@ -14,21 +14,10 @@ import { connectSearchBox } from 'react-instantsearch/connectors';
 
 const SearchBox = connectSearchBox(({handlePosition, refine, currentRefinement, props }) => {
     
-  const styles = {
-    height: 50,
-    borderWidth: 2,
-    borderRadius: 4,
-    borderColor: '#ffffff',
-    padding: 10,
-    margin: 10,
-    flex: 1,
-  };
-    
   return (
         <TextInput
-          style={styles}
-          onChangeText={(text) => {
-            handlePosition(); 
+          style={styles.SearchInputBox}
+          onChangeText={(text) => { 
             if (text.length === 1) {
               props.showItemList();
             }
@@ -46,5 +35,15 @@ const SearchBox = connectSearchBox(({handlePosition, refine, currentRefinement, 
         />
   );
 });
+
+const styles = {
+  SearchInputBox: {
+    height: 50,
+    borderWidth: 2,
+    borderRadius: 2,
+    borderColor: '#ffffff',
+    paddingLeft: 5
+  }
+};
 
 export default SearchBox;

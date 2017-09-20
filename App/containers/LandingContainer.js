@@ -14,8 +14,7 @@ const mapDispatchToProps = dispatch => ({
   },
   HideItemList: () => {
     dispatch({type: 'HIDE_ITEMS', payload: false});
-  }
-}
-);
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Landing);
