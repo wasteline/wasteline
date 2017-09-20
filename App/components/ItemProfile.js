@@ -27,10 +27,12 @@ const styles = StyleSheet.create({
 export default class Profile extends Component {
   constructor(props) {
     super(props);
+
+    this.handleUpvote = this.handleUpvote.bind(this);
   }
 
   handleUpvote(){
-    props.upvote();
+    this.props.upvote();
   }
 
   render(){
@@ -57,7 +59,7 @@ export default class Profile extends Component {
         </View>
         <View style={ styles.tableCell }>
           <Text>Button placeholder to vote on usefulness &#8593;</Text>
-          <Text> {this.props.upvotes} </Text>
+          <Text onPress={this.handleUpvote}> {this.props.upvotes} </Text>
         </View>
       </View>
     )
