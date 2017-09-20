@@ -45,5 +45,9 @@ export default Profile = ({ currentProfile }) => (
       {/* <Text>Material type: {item.material}</Text> */}
       <Text>Material type</Text>
     </View>
+    <View style={ styles.tableCell }>
+      <Text>Button placeholder to vote on usefulness</Text>
+      <Text> 3 </Text>
+    </View>
   </View>
 );
