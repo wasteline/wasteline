@@ -79,7 +79,7 @@ export default class FormView extends Component {
     let formData = new FormData();
     formData.append('photo',this.state.image);
     formData.append('product',productInfo);
-    console.log(formData)
+    // console.log(formData)
     let options = {
       method: 'POST',
       body: formData,
