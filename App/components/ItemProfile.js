@@ -25,12 +25,19 @@ const styles = StyleSheet.create({
 });
 
 export default class Profile extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  handleUpvote(){
+    props.upvote();
+  }
 
   render(){
     return (
       <View style={{ flexDirection: 'column', marginTop: 30 }}>
-        <Text style={{ fontSize: 20, margin: 10 }}>{this.props.object}</Text>
-        <Image style={{ height: 200, width: 300 }} source={{ uri: this.props.image_url }} />
+        <Text style={{ fontSize: 20, margin: 10 }}>{this.props.currentProfile.object}</Text>
+        <Image style={{ height: 200, width: 300 }} source={{ uri: this.props.currentProfile.image_url }} />
         <View style={{ flexDirection: 'row' }}>
           <View style={[styles.tableCell, { height: 100, width: '50%', alignItems: 'center' }]}>
             {/* <Image style={{ height: 70, width: 70 }} source={{ uri: binType(item.bin)[1] }} /> */}
@@ -49,8 +56,8 @@ export default class Profile extends Component {
           <Text>Material type</Text>
         </View>
         <View style={ styles.tableCell }>
-          <Text>Button placeholder to vote on usefulness</Text>
-          <Text> 3 </Text>
+          <Text>Button placeholder to vote on usefulness &#8593;</Text>
+          <Text> {this.props.upvotes} </Text>
         </View>
       </View>
 <<<<<<< HEAD
