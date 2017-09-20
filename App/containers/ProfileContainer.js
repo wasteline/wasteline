@@ -8,6 +8,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => ({
   showProfile: (target) => {
     dispatch({type: 'SHOW_PROFILE', payload: target});
+  }, 
+  upvote: () => {
+    dispatch({type: 'INCREMENT_VOTE'})
   }
 });
 
