@@ -52,5 +52,9 @@ export default Profile = ({ currentProfile }) => (
 =======
 >>>>>>> Add hardcoded text.
     </View>
+    <View style={ styles.tableCell }>
+      <Text>Button placeholder to vote on usefulness</Text>
+      <Text> 3 </Text>
+    </View>
   </View>
 );
