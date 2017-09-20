@@ -39,9 +39,11 @@ export default Profile = ({ currentProfile }) => (
     </View>
     <View style={ styles.tableCell }>
       {/* <Text>Brand name: {item.brand}</Text> */}
+      <Text>Brand name</Text>
     </View>      
     <View style={ styles.tableCell }>
       {/* <Text>Material type: {item.material}</Text> */}
+      <Text>Material type</Text>
     </View>
   </View>
 );
