@@ -46,7 +46,13 @@ export default class Profile extends Component {
 
   renderComments(){
     return (
-      <Text>Maecenas libero est, sagittis quis tempus efficitur, posuere in diam. Etiam dignissim pulvinar velit eu varius.</Text>
+      <View style={{flexDirection: 'row'}}>
+        <Text style={{flex: 9}}>Maecenas libero est, sagittis quis tempus efficitur, posuere in diam. Etiam dignissim pulvinar velit eu varius.</Text>
+        <View style={{flexDirection: 'column'}}>
+          <Text>&#x2191;</Text>
+          <Text>&#x2193;</Text>
+        </View>
+      </View>
     )
   }
 
@@ -74,9 +80,9 @@ export default class Profile extends Component {
         </View>
         <View style={ styles.tableCell }>
           <Text>Top Comments</Text>
-          <View style={{flexDirection: 'row'}}>{this.renderComments()}</View>
-          <Button title="Join discussion" />
+          {this.renderComments()}
         </View>
+        <Button title="Join discussion" />
       </View>
     )
   }
