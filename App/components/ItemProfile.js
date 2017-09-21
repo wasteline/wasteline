@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 import { Image, Text, TouchableHighlight, View, StyleSheet } from 'react-native';
+import { 
+  FormLabel, 
+  FormInput, 
+  FormValidationMessage,
+  Button 
+} from 'react-native-elements';
+
 
 // const binType = (color) => {
 //   //refine as needed
@@ -32,6 +39,7 @@ export default class Profile extends Component {
   }
 
   handleUpvote(){
+    console.log('hiiiiiiii')
     this.props.upvote();
   }
 
@@ -60,6 +68,7 @@ export default class Profile extends Component {
         <View style={ styles.tableCell }>
           <Text>Button placeholder to vote on usefulness &#8593;</Text>
           <Text onPress={this.handleUpvote}> {this.props.upvotes} </Text>
+          <Button onPress={this.handleUpvote} />
         </View>
       </View>
 <<<<<<< HEAD

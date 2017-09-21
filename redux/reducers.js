@@ -22,7 +22,7 @@ export const reducer = (state, action) => {
     });
   case 'UPVOTE':
   return Object.assign({}, state, {
-    upvotes: upvotes + 1
+    upvotes: state.upvotes + 1
   });
   default:
     return state;
