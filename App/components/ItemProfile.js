@@ -36,11 +36,18 @@ export default class Profile extends Component {
     super(props);
 
     this.handleUpvote = this.handleUpvote.bind(this);
+    this.renderComments = this.renderComments.bind(this);
   }
 
   handleUpvote(){
     console.log('hiiiiiiii')
     this.props.upvote();
+  }
+
+  renderComments(){
+    return (
+      <Text>Maecenas libero est, sagittis quis tempus efficitur, posuere in diam. Etiam dignissim pulvinar velit eu varius.</Text>
+    )
   }
 
   render(){
@@ -66,9 +73,9 @@ export default class Profile extends Component {
           <Text>Material type</Text>
         </View>
         <View style={ styles.tableCell }>
-          <Text>Button placeholder to vote on usefulness &#8593;</Text>
-          <Text onPress={this.handleUpvote}> {this.props.upvotes} </Text>
-          <Button onPress={this.handleUpvote} />
+          <Text>Top Comments</Text>
+          <View style={{flexDirection: 'row'}}>{this.renderComments()}</View>
+          <Button title="Join discussion" />
         </View>
       </View>
     )
