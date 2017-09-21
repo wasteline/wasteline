@@ -84,32 +84,7 @@ export default class Profile extends Component {
         </View>
         <Button title="Join discussion" />
       </View>
-<<<<<<< HEAD
-    </View>
-    <View style={ styles.tableCell }>
-      {/* <Text>Brand name: {item.brand}</Text> */}
-      <Text>Brand name</Text>
-    </View>      
-    <View style={ styles.tableCell }>
-      {/* <Text>Material type: {item.material}</Text> */}
-      <Text>Material type</Text>
-<<<<<<< HEAD
-    </View>
-    <View style={ styles.tableCell }>
-      <Text>Button placeholder to vote on usefulness</Text>
-      <Text> 3 </Text>
-=======
->>>>>>> Add hardcoded text.
-    </View>
-    <View style={ styles.tableCell }>
-      <Text>Button placeholder to vote on usefulness</Text>
-      <Text> 3 </Text>
-    </View>
-  </View>
-);
-=======
     )
   }
 
 } 
->>>>>>> Refactor profile to class.
