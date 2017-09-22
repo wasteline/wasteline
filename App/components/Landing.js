@@ -19,14 +19,16 @@ export default class Landing extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      position: 'center'
+      position: 'center',
+      paddingTop: 0
     };
   }
 
   handlePosition() {
     LayoutAnimation.spring();
     this.setState({
-      position: 'flex-start'
+      position: 'flex-start',
+      paddingTop: 20
     });
   }
   
@@ -37,9 +39,11 @@ export default class Landing extends Component {
         <Header 
           props={this.props} 
           handlePosition={this.handlePosition.bind(this)} 
-          position={this.state.position} />
+          position={this.state.position}
+          paddingTop={this.state.paddingTop} 
+          />
         
-        <Footer props={this.props} />
+        {/* <Footer props={this.props} /> */}
 
       </View>
     );
