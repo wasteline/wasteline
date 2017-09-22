@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import ImageUploader from './ImageUploader';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import dismissKeyboard from 'react-native-dismiss-keyboard';
-
+import renderIf from './../helper/renderIf'
 
 import {
   ActivityIndicator,
@@ -26,8 +25,9 @@ import {
 export default class FormView extends Component {
   state = {
     input:'',
-    image:null,
+    image:{cancelled:true},
     isInputTouched:false,
+    validation:false
   }
   handleKeyboard(){
     if(this.state.isInputTouched){
@@ -53,7 +53,7 @@ export default class FormView extends Component {
     if(this.state.image){
       if(!this.state.image.cancelled){
         return (
-          <View style={{alignItems: 'center'}}>
+          <View style={styles.ConfirmContainer}>
           <Icon
             name='check'
             type='evilicon'
@@ -72,16 +72,24 @@ export default class FormView extends Component {
   }
 
   handleSubmit(){
-    let imgUri = this.state.image.uri;
-    let productInfo = {
-      productName:this.state.input
-    }
+    let apiUrl = 'http://localhost:3001/api/image';
+    let uri = this.state.image.uri;
+    let productInfo = this.state.input
+    let uriParts = uri.split('/');
+    let fileName = uriParts[uriParts.length - 1];
+    let fileType = uriParts[uriParts.length - 1].split('.')[1];
     let formData = new FormData();
-    formData.append('photo',this.state.image);
-    formData.append('product',productInfo);
-    // console.log(formData)
+    
+    formData.append('photo', {
+      uri,
+      name: `${fileName}`,
+      type: `image/${fileType}`
+    });
+    
+    formData.append('product',this.state.input);
+    
     let options = {
-      method: 'POST',
+      method: 'post',
       body: formData,
       headers: {
         Accept: 'application/json',
@@ -89,10 +97,22 @@ export default class FormView extends Component {
       },
     };
   
-    // return fetch(apiUrl, options);
+    fetch(apiUrl, options)
+    .then((response)=>response.json())
+    .then(responseJson => {
+      this.props.changeProfile({
+        object:this.state.input,
+        image_url:'https://s3-us-west-1.amazonaws.com/fifatalk/' + responseJson
+      });
+      this.props.navigation.navigate('Profile');
+    })
+    .catch(err =>{
+      console.log("Error Message:",err)
+    })
 
   }
   render() {
+    // console.log('FormView props:',this.props)
     return (
       <View style={styles.container}
        onTouchEnd={()=>{this.handleKeyboard();}}>
@@ -103,28 +123,26 @@ export default class FormView extends Component {
             required 
             placeholder='Enter Product Name' 
             onTouchEnd={()=>{this.handleInputTouch()}} />
-          <FormValidationMessage>Error message</FormValidationMessage>
+          <FormValidationMessage>*required</FormValidationMessage>
         </View>
 
         <View style={styles.ImageUploaderContainer}>
           <FormLabel>Upload Product Image</FormLabel>
           <ImageUploader 
             handleImage={this.handleImage.bind(this)}/>
-          {this.handleConfirm()}
         </View>
+          {this.handleConfirm()}
 
-        <View>
+        <View style={styles.FormSubmitContainer}>
           <Button
             style={{margin:20}}
             backgroundColor='dodgerblue'
             raised
-            title='SUBMIT' 
+            title='SUBMIT'
+            disabled={this.state.input.length === 0 || this.state.image.cancelled} 
             onPress={this.handleSubmit.bind(this)}
             />
         </View>
-
-          <Text>Image to be uploaded</Text>
-          <Text>{JSON.stringify(this.state.image)}</Text>
 
       </View>
     );
@@ -137,13 +155,21 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent:'center'
   },
-  FormContainer:{
-    flex:3
-  },
-  ImageUploaderContainer:{
-    flex:2
-  },
   label: {
     fontSize: 20,
+  },
+  FormContainer:{
+    flex:2
+  },
+  ImageUploaderContainer:{
+    flex:3,
+    alignItems:'center'
+  },
+  ConfirmContainer:{
+    flex:1,
+    alignItems:'center'
+  },
+  FormSubmitContainer:{
+    flex:1
   }
 });
