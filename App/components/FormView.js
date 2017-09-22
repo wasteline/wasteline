@@ -87,7 +87,7 @@ export default class FormView extends Component {
     });
     
     formData.append('product',this.state.input);
-
+    
     let options = {
       method: 'post',
       body: formData,

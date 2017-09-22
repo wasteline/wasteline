@@ -1,6 +1,6 @@
 {
-  "name": "instantSearch-tutorial",
-  "version": "0.1.0",
+  "name": "wasteline",
+  "version": "1.0.2",
   "private": true,
   "devDependencies": {
     "jest-expo": "~20.0.0",
@@ -28,6 +28,7 @@
     "react-native-dismiss-keyboard": "^1.0.0",
     "react-native-elements": "^0.16.0",
     "react-native-image-picker": "^0.26.7",
+    "react-native-keyboard-aware-scroll-view": "^0.3.0",
     "react-native-modalbox": "^1.4.2",
     "react-navigation": "^1.0.0-beta.11",
     "react-redux": "^5.0.6",
