@@ -7,9 +7,23 @@ import { StackNavigator } from 'react-navigation';
 
 const App = StackNavigator({
   Landing: { 
-    screen: Landing },
-  Profile: { screen: Profile },
-  FormView: { screen: FormView },
+    screen: Landing,
+    navigationOptions: ({navigation}) => ({
+      header: null
+    }),
+  },
+  Profile: { 
+    screen: Profile,
+    navigationOptions: ({navigation}) => ({
+      title: 'Product Info'
+    }),
+  },
+  FormView: { 
+    screen: FormView,
+    navigationOptions: ({navigation}) => ({
+      title: 'Upload'
+    }),
+  },
 });
 
 const styles = StyleSheet.create({
