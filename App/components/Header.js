@@ -8,11 +8,13 @@ import {
   View,
 } from 'react-native';
 
-const Header = ({props, handlePosition, position}) => (
-  <View style={[styles.LandingHeader, {justifyContent: position}]}>
-    <Text style={[styles.LandingHeaderText]}>
-      WasteLine
-    </Text>
+const Header = ({props, handlePosition, paddingTop, position}) => (
+  <View style={[styles.LandingHeader,
+     {justifyContent: position, paddingTop: paddingTop}]}>
+    {renderIf(position === 'center',
+      <Text style={[styles.LandingHeaderText]}>
+        WasteLine
+      </Text>)}
     <View onTouchEnd={()=>handlePosition()}
       style={[styles.SearchBoxContainer]}>
       <InstantSearch
@@ -31,7 +33,7 @@ const styles = {
     flex: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'yellow',
+    backgroundColor: 'white',
   },
   LandingHeaderText: {
     fontSize: 40,
@@ -39,8 +41,8 @@ const styles = {
   },
   SearchBoxContainer: {
     alignSelf: 'stretch',
-    backgroundColor: 'blue',
-    padding: 5
+    // backgroundColor: 'blue',
+    // padding: 5
   },
 };
 
