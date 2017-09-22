@@ -120,7 +120,9 @@ export default class Profile extends Component {
     return (
       <View style={{ flexDirection: 'column', marginTop: 30 }}>
         <Text style={{ fontSize: 20, margin: 10 }}>{this.props.currentProfile.object}</Text>
-        <Image style={{ height: 200, width: 300 }} source={{ uri: this.props.currentProfile.image_url }} />
+        <View style={{ alignItems: 'center' }}>
+          <Image style={{ height: 200, width: 300 }} source={{ uri: this.props.currentProfile.image_url }} />
+        </View>
         <View>
           <TouchableHighlight onPress={() => {
             this.setState({ inputDisplay: 'flex', locationDisplay: 'none' });
