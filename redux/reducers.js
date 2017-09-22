@@ -20,6 +20,10 @@ export const reducer = (state, action) => {
     return Object.assign({}, state, {
       showItem: action.payload
     });
+  case 'UPVOTE':
+  return Object.assign({}, state, {
+    upvotes: state.upvotes + 1
+  });
   default:
     return state;
   }
