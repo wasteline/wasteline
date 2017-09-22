@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
-import { Image, Text, TouchableHighlight, View, StyleSheet } from 'react-native';
+import {
+  Image,
+  Text,
+  TouchableHighlight,
+  View,
+  StyleSheet,
+  TextInput
+} from 'react-native';
 import { 
   FormLabel, 
   FormInput, 
   FormValidationMessage,
   Button 
 } from 'react-native-elements';
-
-
+import MapView from 'react-native-maps';
 // const binType = (color) => {
 //   //refine as needed
 //   let type, icon;
@@ -24,10 +30,20 @@ import {
 
 const styles = StyleSheet.create({
   tableCell: {
-    padding: 5,
     borderWidth: 1,
     borderStyle: 'dotted',
     borderColor: 'black',
+  },
+  map: {
+    height: '100%',
+    width: '100%',
+  },
+  locationInput: {
+    height: 50,
+    borderWidth: 2,
+    borderRadius: 2,
+    borderColor: '#ffffff',
+    paddingLeft: 5
   }
 });
 
@@ -37,14 +53,55 @@ export default class Profile extends Component {
 
     this.handleUpvote = this.handleUpvote.bind(this);
     this.renderComments = this.renderComments.bind(this);
+    this.state = {
+      mapLocation: '',
+      inputDisplay: 'none',
+      locationDisplay: 'flex',
+      region: {}
+    };
   }
-
-  handleUpvote(){
-    console.log('hiiiiiiii')
+  
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition(({ coords }) => {
+      fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords.latitude},${coords.longitude}&key=${process.env.GOOGLE_GEOCODE_KEY}`)
+        .then((response) => response.json())
+        .then(({ results }) => {
+          this.setState({ mapLocation: results[0].formatted_address });
+        });
+      this.setState({
+        region: {
+          latitude: coords.latitude,
+          longitude: coords.longitude,   
+          latitudeDelta: 0.005,
+          longitudeDelta: 0.005,
+        }
+      });
+    }, null, { enableHighAccuracy: true }
+    );
+  }
+  
+  relocateMap(address) {
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address.replace(/ /g, '+')}&key=${process.env.GOOGLE_GEOCODE_KEY}`)
+      .then((response) => response.json())
+      .then(({ results }) => {
+        console.log(results);
+        this.setState({
+          region: {
+            latitude: results[0].geometry.location.lat,
+            longitude: results[0].geometry.location.lng,   
+            latitudeDelta: 0.005,
+            longitudeDelta: 0.005,          
+          } 
+        });
+      });
+  }
+  
+  handleUpvote() {
+    console.log('hiiiiiiii');
     this.props.upvote();
   }
 
-  renderComments(){
+  renderComments() {
     return (
       <View style={{flexDirection: 'row'}}>
         <Text style={{flex: 9}}>Maecenas libero est, sagittis quis tempus efficitur, posuere in diam. Etiam dignissim pulvinar velit eu varius.</Text>
@@ -53,25 +110,43 @@ export default class Profile extends Component {
           <Text>&#x2193;</Text>
         </View>
       </View>
-    )
+    );
   }
 
-  render(){
+  render() {
     return (
       <View style={{ flexDirection: 'column', marginTop: 30 }}>
         <Text style={{ fontSize: 20, margin: 10 }}>{this.props.currentProfile.object}</Text>
         <Image style={{ height: 200, width: 300 }} source={{ uri: this.props.currentProfile.image_url }} />
+        <View>
+          <TouchableHighlight onPress={() => {
+            this.setState({ inputDisplay: 'flex', locationDisplay: 'none' });
+          }}>
+            <Text style={{ display: this.state.locationDisplay }}>Location: {this.state.mapLocation}</Text>
+          </TouchableHighlight>
+          <TextInput onSubmitEditing={({ nativeEvent }) => {
+            this.setState({
+              locationDisplay: 'flex',
+              inputDisplay: 'none',
+              mapLocation: nativeEvent.text
+            });
+            this.relocateMap(nativeEvent.text);
+          }}
+            style={[styles.locationInput, { display: this.state.inputDisplay, height: 20 }]}
+            placeholder='Address, City, State'
+          >
+          </TextInput>
+        </View>
         <View style={{ flexDirection: 'row' }}>
           <View style={[styles.tableCell, { height: 100, width: '50%', alignItems: 'center' }]}>
             {/* <Image style={{ height: 70, width: 70 }} source={{ uri: binType(item.bin)[1] }} /> */}
             {/* <Text>{binType(item.bin)[0]}</Text> */}
           </View>
           <View style={[styles.tableCell, { height: 100, width: '50%', alignItems: 'center' }]}>
-            <Text>placeholder</Text>
+            <MapView style={styles.map} region={this.state.region} />
           </View>
         </View>
         <View style={ styles.tableCell }>
-          {/* <Text>Brand name: {item.brand}</Text> */}
           <Text>Brand name</Text>
         </View>      
         <View style={ styles.tableCell }>
@@ -84,7 +159,6 @@ export default class Profile extends Component {
         </View>
         <Button title="Join discussion" />
       </View>
-    )
+    );
   }
-
-} 
+}

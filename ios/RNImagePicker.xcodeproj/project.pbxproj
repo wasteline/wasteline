@@ -5,9 +5,9 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		014A3B6A1C6CF34500B6D375 /* ImagePickerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 014A3B691C6CF34500B6D375 /* ImagePickerManager.m */; };
+		83B0E6506BF647529611EAC0 /* libAirMaps.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B76E9668E0A249A788700B19 /* libAirMaps.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -26,6 +26,8 @@
 		014A3B5C1C6CF33500B6D375 /* libRNImagePicker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libRNImagePicker.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		014A3B681C6CF34500B6D375 /* ImagePickerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePickerManager.h; sourceTree = "<group>"; };
 		014A3B691C6CF34500B6D375 /* ImagePickerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePickerManager.m; sourceTree = "<group>"; };
+		8782FE7CD3334CCD8D013F8F /* AirMaps.xcodeproj */ = {isa = PBXFileReference; name = "AirMaps.xcodeproj"; path = "../node_modules/react-native-maps/lib/ios/AirMaps.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		B76E9668E0A249A788700B19 /* libAirMaps.a */ = {isa = PBXFileReference; name = "libAirMaps.a"; path = "libAirMaps.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				83B0E6506BF647529611EAC0 /* libAirMaps.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -45,6 +48,7 @@
 				014A3B681C6CF34500B6D375 /* ImagePickerManager.h */,
 				014A3B691C6CF34500B6D375 /* ImagePickerManager.m */,
 				014A3B5D1C6CF33500B6D375 /* Products */,
+				C452AF43E2CE4ADFB90071BC /* Libraries */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,6 +59,15 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		C452AF43E2CE4ADFB90071BC /* Libraries */ = {
+			isa = "PBXGroup";
+			children = (
+				8782FE7CD3334CCD8D013F8F /* AirMaps.xcodeproj */,
+			);
+			name = Libraries;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -82,7 +95,7 @@
 		014A3B541C6CF33500B6D375 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 720;
 				ORGANIZATIONNAME = "Marc Shilling";
 				TargetAttributes = {
 					014A3B5B1C6CF33500B6D375 = {
@@ -206,6 +219,10 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 			};
 			name = Debug;
 		};
@@ -216,6 +233,10 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+				);
 			};
 			name = Release;
 		};
