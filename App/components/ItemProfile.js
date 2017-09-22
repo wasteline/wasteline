@@ -14,6 +14,7 @@ import {
   Button 
 } from 'react-native-elements';
 import MapView from 'react-native-maps';
+import { GOOGLE_GEOCODE_KEY } from 'react-native-dotenv';
 // const binType = (color) => {
 //   //refine as needed
 //   let type, icon;
@@ -63,7 +64,7 @@ export default class Profile extends Component {
   
   componentDidMount() {
     navigator.geolocation.getCurrentPosition(({ coords }) => {
-      fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords.latitude},${coords.longitude}&key=${process.env.GOOGLE_GEOCODE_KEY}`)
+      fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${coords.latitude},${coords.longitude}&key=${GOOGLE_GEOCODE_KEY}`)
         .then((response) => response.json())
         .then(({ results }) => {
           this.setState({ mapLocation: results[0].formatted_address });
@@ -81,7 +82,7 @@ export default class Profile extends Component {
   }
   
   relocateMap(address) {
-    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address.replace(/ /g, '+')}&key=${process.env.GOOGLE_GEOCODE_KEY}`)
+    fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${address.replace(/ /g, '+')}&key=${GOOGLE_GEOCODE_KEY}`)
       .then((response) => response.json())
       .then(({ results }) => {
         console.log(results);
