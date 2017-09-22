@@ -9,8 +9,8 @@ export default class AddIcon extends Component {
         <Icon
         name='plus'
         type='evilicon'
-        color='white'
-        size={50}
+        color='black'
+        size={40}
       />  
     );
   }
