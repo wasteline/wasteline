@@ -10,29 +10,27 @@ import {
   View
  } from 'react-native';
 
+import { List, ListItem, SearchBar } from 'react-native-elements';
+
 import { connectSearchBox } from 'react-instantsearch/connectors';
 
 const SearchBox = connectSearchBox(({handlePosition, refine, currentRefinement, props }) => {
     
   return (
-        <TextInput
-          style={styles.SearchInputBox}
-          onChangeText={(text) => { 
-            if (text.length === 1) {
-              props.showItemList();
-            }
-            if (text.length === 0) {
-              props.HideItemList();
-            }
-            refine(text); 
-          }}
-          value={currentRefinement}
-          placeholder={'Search a product...'}
-          clearButtonMode={'always'}
-          spellCheck={false}
-          autoCorrect={false}
-          autoCapitalize={'none'}
-        />
+    <SearchBar 
+    placeholder="Product Name" 
+    lightTheme round
+    showLoadingIcon={false}
+    onChangeText={(text) => { 
+      if (text.length === 1) {
+        props.showItemList();
+      }
+      if (text.length === 0) {
+        props.HideItemList();
+      }
+      refine(text); 
+    }}
+     />
   );
 });
 

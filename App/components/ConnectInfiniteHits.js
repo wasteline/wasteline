@@ -9,7 +9,13 @@ import {
   Image,  
   FlatList, 
   TouchableOpacity, 
+  ActivityIndicator,
  } from 'react-native';
+
+import {
+  List,
+  ListItem
+} from 'react-native-elements';
 
 const Hits = connectInfiniteHits(({ hits, hasMore, refine, props }) => {
   
@@ -46,29 +52,66 @@ const Hits = connectInfiniteHits(({ hits, hasMore, refine, props }) => {
     );
   };
 
+  renderFooter = () => {
+    return (
+       <View style={[styles.ItemListContainer, {justifyContent: 'space-around', padding: 5}]}>
+           <View>
+             <Text>Do not see your Product?</Text>
+           </View>
+           <View >
+             <TouchableOpacity onPress={()=>props.navigation.navigate('FormView')}>
+               <AddIcon />
+             </TouchableOpacity>
+           </View>
+        </View>
+    );
+  };
+
+  renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 1,
+          width: '100%',
+          backgroundColor: '#CED0CE',
+        }}
+      />
+    );
+  };
+
   return (
-    <View>
+    <List style={styles.ListContainer}>
       <FlatList
         data={hits}
-        onEndReached={onEndReached}
         keyExtractor={(item, index) => item.objectID}
-        renderItem={_renderItem}
+        renderItem={({ item }) => (
+          <ListItem style={styles.ListItem}
+            roundAvatar
+            title={`${item.object}`}
+            avatar={{ uri: item.image_url }}
+            containerStyle={{ borderBottomWidth: 0 }}
+            onPress={()=>{ handleProfile(item); }}
+          />
+        )}
+        ItemSeparatorComponent={this.renderSeparator}
+        ListFooterComponent={this.renderFooter}
       />
-      <View style={[styles.ItemListContainer, {justifyContent: 'space-around', padding: 5}]}>
-          <View style={[{justifyContent: 'center'}]}>
-            <Text style={styles.itemTitle}>Do not see your Product?</Text>
-          </View>
-          <View style={styles.ItemIcon}>
-            <TouchableOpacity onPress={()=>props.navigation.navigate('FormView')}>
-              <AddIcon />
-            </TouchableOpacity>
-          </View>
-        </View>
-    </View>  
+    </List> 
   );
 });
 
 const styles = {
+  ListContainer: {   
+    paddingLeft: 10,
+    paddingRight: 10, 
+    borderTopWidth: 0,
+    borderBottomWidth: 0,
+  },
+  ListItem: {
+    padding: 5,
+    backgroundColor: '#efefef',
+    borderRadius: 2
+  },
   ItemListContainer: {
     flexDirection: 'row', 
     alignItems: 'center',
@@ -86,7 +129,7 @@ const styles = {
   
   },
   itemTitle: {
-    color: 'white',
+    color: 'black',
     marginLeft: 10
   },
   ItemIcon: {
