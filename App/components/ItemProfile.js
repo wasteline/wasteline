@@ -14,6 +14,7 @@ import {
   Button 
 } from 'react-native-elements';
 import MapView from 'react-native-maps';
+import GooglePlacesAutocomplete from 'react-native-google-places-autocomplete';
 import { GOOGLE_GEOCODE_KEY } from 'react-native-dotenv';
 
 const binType = (color) => {
@@ -26,7 +27,7 @@ const binType = (color) => {
     break;
   case 'landfill': type = 'Landfill', icon = 'http://www.recycling.com/wp-content/uploads/2016/06/recycling-symbol-icon-twotone-black.png';
     break;    
-  case 'recyclable_elsewhere': type = 'Recyclable elsewhere', icon = 'https://cdn4.iconfinder.com/data/icons/recycle-and-environment-vol-2/600/home-Building-estate-house-Conservation-green-recycle-recycling-Ecology-environment-packaging-512.png'
+  case 'recyclable_elsewhere': type = 'Recyclable elsewhere', icon = 'https://cdn4.iconfinder.com/data/icons/recycle-and-environment-vol-2/600/home-Building-estate-house-Conservation-green-recycle-recycling-Ecology-environment-packaging-512.png';
   }
   return icon;
 };
@@ -120,7 +121,9 @@ export default class Profile extends Component {
     return (
       <View style={{ flexDirection: 'column', marginTop: 30 }}>
         <Text style={{ fontSize: 20, margin: 10 }}>{this.props.currentProfile.object}</Text>
-        <Image style={{ height: 200, width: 300 }} source={{ uri: this.props.currentProfile.image_url }} />
+        <View style={{ alignItems: 'center' }}>
+          <Image style={{ height: 200, width: 300 }} source={{ uri: this.props.currentProfile.image_url }} />
+        </View>
         <View>
           <TouchableHighlight onPress={() => {
             this.setState({ inputDisplay: 'flex', locationDisplay: 'none' });
@@ -143,11 +146,28 @@ export default class Profile extends Component {
         <View style={{ flexDirection: 'row' }}>
           <View style={[styles.tableCell, { height: 100, width: '50%', alignItems: 'center' }]}>
             {/* <Image style={{ height: 70, width: 70 }} source={{ uri: binType(item.bin)[1] }} /> */}
-            <Image style={{ height: 70, width: 70 }} source={{uri:binType(this.props.currentProfile.instruction)}} />
+            <TouchableHighlight onPress={() => {
+              this.setState({ mapLocation: '2915 16th St, San Francisco, CA 94103' });
+              this.relocateMap('2915 16th St, San Francisco, CA 94103'); 
+            }}>  
+              <Image style={{ height: 70, width: 70 }} source={{uri: binType(this.props.currentProfile.instruction)}} />
+            </TouchableHighlight>
             <Text>{this.props.currentProfile.instruction}</Text>
           </View>
           <View style={[styles.tableCell, { height: 100, width: '50%', alignItems: 'center' }]}>
-            <MapView style={styles.map} region={this.state.region} />
+            <MapView style={styles.map} region={this.state.region}>
+              <MapView.Marker
+                coordinate={{
+                  latitude: 37.7650,
+                  longitude: -122.4180,
+                }}
+                title={'eWasteSF Electronics Recycling'}
+                description={`Free Recycling/ Data Wipe for Computers, Cell Phones, Tablets and wire/cords.
+Data Destruction/ Wipe is free for computers,cell ph & all storage devices. 
+All electronics are ok for drop off. Appliances, TV's,  printers and general household electronics have a cost to recycle. See ewastesf.com for any cost associated with recycling.
+`}
+              />
+            </MapView>
           </View>
         </View>
         <View style={ styles.tableCell }>
